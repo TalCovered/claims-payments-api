@@ -3,6 +3,27 @@
 A small revenue cycle management API built with Python, FastAPI, SQLAlchemy, and
 SQLite. It stores claims and independent payment records, each with service lines.
 
+## Concepts
+
+- **Provider**: whoever delivers the care, such as a doctor, nurse, or clinic.
+- **Payer**: an insurance company.
+- **Claim**: a provider's bill to a payer for one patient visit.
+- **Service line**: one billed item on a claim, like a procedure with its charge.
+  A claim has one or more.
+- **Payment**: the payer's response to a claim, matched by claim reference. One
+  claim can get several payments.
+- **Payment line**: the payer's decision on one service line: what was billed,
+  what was paid, and why anything was denied.
+
+Example: Dr. Lee (provider) sends claim `CLM-1001` with two service lines to Acme
+Health (payer). Acme replies with payment `PAY-5001`, which pays the office visit
+in part and denies the blood test.
+
+| Line | Procedure | Billed (claim) | Paid (payment) | Denial reason |
+| --- | --- | --- | --- | --- |
+| 1 | `99213` office visit | $150.00 | $120.00 | |
+| 2 | `85025` blood count | $40.00 | $0.00 | Not medically necessary |
+
 ## Run locally
 
 Requires Python 3.12 or newer. From the repository root:
